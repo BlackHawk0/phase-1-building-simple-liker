@@ -3,6 +3,38 @@ const EMPTY_HEART = '♡'
 const FULL_HEART = '♥'
 
 // Your JavaScript code goes here!
+// adding the class 'hidden' to the modal error
+
+const modalClass = document.querySelector('#modal')
+modalClass.classList.add("hidden")
+
+// selecting the likes
+let likeHearts = document.querySelectorAll('.like-glyph')
+
+// setting onclick listener
+for(element of likeHearts){
+  if(element === EMPTY_HEART){
+    element.addEventListener("click", event =>{
+      mimicServerCall()
+      .then(res =>{
+        //check response
+        if(res === 200){
+          //change color of the liker
+          modalClass.className = "activated-heart"
+        }
+      })
+      .catch(error =>{
+       modalClass.className = "" 
+       setTimeout(()=>{
+        modalClass.classList.add("hidden")
+       }, 3000)
+      })
+    })
+  }else{
+    modalClass.className = "hidden"
+  }
+}
+
 
 
 
